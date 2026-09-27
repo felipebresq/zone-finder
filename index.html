@@ -254,7 +254,7 @@
 
     <h1>Zone Finder</h1>
 
-    <p>Find the location of an item</p>
+    <p>Find the location of a section</p>
 
 </header>
 
@@ -269,14 +269,14 @@
 
     <div class="search-box">
 
-        <h2>Search for an Item</h2>
+        <h2>Search for a Section</h2>
 
         <div class="search-area">
 
             <input
                 type="text"
                 id="itemSearch"
-                placeholder="Enter item number..."
+                placeholder="Enter PI number..."
             >
 
             <button onclick="findItem()">
@@ -391,62 +391,197 @@
 
 
 /* =====================================================
-   TEST ITEM DATABASE
+   SECTION DATA
+   Temporary sample based on the current Excel structure.
+   Final data will come from the updated Excel file.
 ===================================================== */
 
-
-const itemLocations = {
-
-    "100001": {
-        map: "mens",
-        zone: 1
+const sectionData = {
+    "102": {
+        "floor": "1",
+        "zone": "05",
+        "dept": "N",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     },
-
-    "100002": {
-        map: "mens",
-        zone: 5
+    "140": {
+        "floor": "1",
+        "zone": "06",
+        "dept": "T",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     },
-
-    "100003": {
-        map: "mens",
-        zone: 10
+    "176": {
+        "floor": "1",
+        "zone": "07",
+        "dept": "E",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     },
-
-
-    "200001": {
-        map: "womens",
-        zone: 11
+    "190": {
+        "floor": "1",
+        "zone": "08",
+        "dept": "A",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     },
-
-    "200002": {
-        map: "womens",
-        zone: 12
+    "226": {
+        "floor": "1",
+        "zone": "09",
+        "dept": "B",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     },
-
-    "200003": {
-        map: "womens",
-        zone: 13
+    "280": {
+        "floor": "1",
+        "zone": "10",
+        "dept": "W",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     },
-
-
-    "300001": {
-        map: "additional",
-        zone: 80
+    "984": {
+        "floor": "2",
+        "zone": "11",
+        "dept": "M / P",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     },
-
-    "300002": {
-        map: "additional",
-        zone: 82
+    "1012": {
+        "floor": "2",
+        "zone": "12",
+        "dept": "D / Z",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     },
-
-    "300003": {
-        map: "additional",
-        zone: 85
+    "1041": {
+        "floor": "2",
+        "zone": "13",
+        "dept": "D / Z",
+        "description": "",
+        "detail": "",
+        "detail2": ""
+    },
+    "1582": {
+        "floor": "4",
+        "zone": "80",
+        "dept": "",
+        "description": "",
+        "detail": "",
+        "detail2": ""
+    },
+    "1606": {
+        "floor": "4",
+        "zone": "81",
+        "dept": "",
+        "description": "",
+        "detail": "",
+        "detail2": ""
+    },
+    "1629": {
+        "floor": "4",
+        "zone": "82",
+        "dept": "",
+        "description": "",
+        "detail": "",
+        "detail2": ""
+    },
+    "1657": {
+        "floor": "4",
+        "zone": "83",
+        "dept": "",
+        "description": "",
+        "detail": "",
+        "detail2": ""
+    },
+    "1697": {
+        "floor": "4",
+        "zone": "84",
+        "dept": "",
+        "description": "",
+        "detail": "",
+        "detail2": ""
+    },
+    "001": {
+        "floor": "1",
+        "zone": "01",
+        "dept": "F",
+        "description": "Fashion Jewelry",
+        "detail": "Display tower",
+        "detail2": "Display case"
+    },
+    "002": {
+        "floor": "1",
+        "zone": "01",
+        "dept": "F",
+        "description": "Fashion Jewelry",
+        "detail": "Display tower",
+        "detail2": "1st drawer"
+    },
+    "003": {
+        "floor": "1",
+        "zone": "01",
+        "dept": "F",
+        "description": "Fashion Jewelry",
+        "detail": "Display tower",
+        "detail2": "2nd drawer"
+    },
+    "004": {
+        "floor": "1",
+        "zone": "01",
+        "dept": "F",
+        "description": "Fashion Jewelry",
+        "detail": "Display tower",
+        "detail2": "3rd drawer"
+    },
+    "005": {
+        "floor": "1",
+        "zone": "01",
+        "dept": "F",
+        "description": "Fashion Jewelry",
+        "detail": "Display tower",
+        "detail2": "4th drawer"
+    },
+    "006": {
+        "floor": "1",
+        "zone": "01",
+        "dept": "F",
+        "description": "Fashion Jewelry",
+        "detail": "Display tower",
+        "detail2": "5th drawer"
+    },
+    "033": {
+        "floor": "1",
+        "zone": "02",
+        "dept": "V",
+        "description": "",
+        "detail": "",
+        "detail2": ""
+    },
+    "061": {
+        "floor": "1",
+        "zone": "03",
+        "dept": "1",
+        "description": "",
+        "detail": "",
+        "detail2": ""
+    },
+    "094": {
+        "floor": "1",
+        "zone": "04",
+        "dept": "MIX",
+        "description": "",
+        "detail": "",
+        "detail2": ""
     }
-
 };
-
-
 
 /* =====================================================
    SEARCH
@@ -455,131 +590,93 @@ const itemLocations = {
 
 function findItem() {
 
-    const input =
-        document.getElementById("itemSearch");
+    const input = document.getElementById("itemSearch");
+    const pi = input.value.trim();
+    const result = document.getElementById("result");
 
-    const item =
-        input.value.trim();
+    document.querySelectorAll(".map-section").forEach(map => {
+        map.classList.remove("active");
+    });
 
-    const result =
-        document.getElementById("result");
+    document.querySelectorAll(".zone-highlight").forEach(highlight => {
+        highlight.classList.remove("active");
+    });
 
-
-    /* Hide every map */
-
-    document
-        .querySelectorAll(".map-section")
-        .forEach(map => {
-
-            map.classList.remove("active");
-
-        });
-
-
-    /* Hide every highlight */
-
-    document
-        .querySelectorAll(".zone-highlight")
-        .forEach(highlight => {
-
-            highlight.classList.remove("active");
-
-        });
-
-
-    /* Empty search */
-
-    if (item === "") {
-
-        result.innerHTML =
-            "Please enter an item number.";
-
-        result.className =
-            "result error";
-
+    if (pi === "") {
+        result.innerHTML = "Please enter a PI number.";
+        result.className = "result error";
         return;
-
     }
 
+    const section = sectionData[pi];
 
-    /* Find item */
-
-    const location =
-        itemLocations[item];
-
-
-    /* Item doesn't exist */
-
-    if (!location) {
-
-        result.innerHTML =
-            "Item not found.";
-
-        result.className =
-            "result error";
-
+    if (!section) {
+        result.innerHTML = "PI not found.";
+        result.className = "result error";
         return;
-
     }
 
+    const zoneNumber = parseInt(section.zone, 10);
+    const floorText = getFloorText(section.floor);
 
-    /* Show location */
+    const details = [
+        section.description,
+        section.detail,
+        section.detail2
+    ].filter(Boolean).join(" - ");
 
     result.innerHTML =
-        "Location: <span class='zone'>Zone " +
-        location.zone +
-        "</span>";
+        "<strong>Zone " + zoneNumber + " - " + floorText + "</strong>" +
+        (details ? "<br>" + details : "");
 
-    result.className =
-        "result";
+    result.className = "result";
 
+    const map = getMapForZone(zoneNumber);
 
-    /* =========================================
-       MEN'S
-    ========================================= */
-
-    if (location.map === "mens") {
-
-        document
-            .getElementById("mensMap")
-            .classList.add("active");
-
-        highlightMensZone(location.zone);
-
+    if (!map) {
+        result.innerHTML +=
+            "<br><span style='font-size:16px;font-weight:normal;color:#666;'>Map for this zone is not available yet.</span>";
+        return;
     }
 
-
-    /* =========================================
-       WOMEN'S
-    ========================================= */
-
-    if (location.map === "womens") {
-
-        document
-            .getElementById("womensMap")
-            .classList.add("active");
-
-        highlightWomensZone(location.zone);
-
+    if (map === "mens") {
+        document.getElementById("mensMap").classList.add("active");
+        highlightMensZone(zoneNumber);
     }
 
-
-    /* =========================================
-       ADDITIONAL
-    ========================================= */
-
-    if (location.map === "additional") {
-
-        document
-            .getElementById("additionalMap")
-            .classList.add("active");
-
-        highlightAdditionalZone(location.zone);
-
+    if (map === "womens") {
+        document.getElementById("womensMap").classList.add("active");
+        highlightWomensZone(zoneNumber);
     }
 
+    if (map === "additional") {
+        document.getElementById("additionalMap").classList.add("active");
+        highlightAdditionalZone(zoneNumber);
+    }
 }
 
+
+function getFloorText(floor) {
+
+    const floorNumber = parseInt(floor, 10);
+
+    if (floorNumber === 1) return "1st Floor";
+    if (floorNumber === 2) return "2nd Floor";
+    if (floorNumber === 3) return "3rd Floor";
+    if (floorNumber === 4) return "4th Floor";
+
+    return "Floor " + floorNumber;
+}
+
+
+function getMapForZone(zone) {
+
+    if (zone >= 1 && zone <= 10) return "mens";
+    if (zone >= 11 && zone <= 13) return "womens";
+    if (zone >= 80 && zone <= 85) return "additional";
+
+    return null;
+}
 
 
 /* =====================================================
