@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Zone Finder</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #111;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            color: #ccc;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .search-box {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .search-box input {
+            width: 70%;
+            max-width: 500px;
+            padding: 15px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        .search-box button {
+            margin-left: 8px;
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: #111;
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-box button:hover {
+            background: #333;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .map-section {
+            margin-top: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .map-section h2 {
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .map {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Zone Finder</h1>
+        <p>Find the location of an item</p>
+    </header>
+
+    <div class="container">
+
+        <div class="search-box">
+            <input
+                type="text"
+                id="itemSearch"
+                placeholder="Enter item number..."
+            >
+
+            <button onclick="findItem()">Search</button>
+
+            <div class="result" id="result"></div>
+        </div>
+
+        <div class="map-section">
+            <h2>Men's Universe</h2>
+            <img
+                class="map"
+                src="map-mens.png.png"
+                alt="Men's Universe Map"
+            >
+        </div>
+
+        <div class="map-section">
+            <h2>Women's Universe</h2>
+            <img
+                class="map"
+                src="map-womens.png.png"
+                alt="Women's Universe Map"
+            >
+        </div>
+
+        <div class="map-section">
+            <h2>Additional Stockroom</h2>
+            <img
+                class="map"
+                src="map-additional.png.png"
+                alt="Additional Stockroom Map"
+            >
+        </div>
+
+    </div>
+
+    <script>
+        function findItem() {
+
+            const item = document.getElementById("itemSearch").value;
+
+            document.getElementById("result").innerText =
+                "You searched for: " + item;
+        }
+    </script>
+
+</body>
+</html>
