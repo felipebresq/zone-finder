@@ -825,6 +825,11 @@ function highlightMensZone(zone) {
     highlight.style.height =
         position.height;
 
+    // Zone 5 wraps around Zone 6, so highlight only the L-shaped green area.
+    // Clear the custom shape whenever another men's zone is selected.
+    highlight.style.clipPath = Number(zone) === 5
+        ? "polygon(0 0, 31% 0, 31% 55%, 100% 55%, 100% 100%, 0 100%)"
+        : "none";
 
     highlight.classList.add("active");
 
