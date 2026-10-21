@@ -862,7 +862,7 @@ function highlightWomensZone(zone) {
         13: { left: "79%", top: "7%", width: "20%", height: "37%" },
 
         /* New women's map zones */
-        39: { left: "2%", top: "3%", width: "19%", height: "25%" },
+        39: { left: "1%", top: "3%", width: "29%", height: "36%" },
         40: { left: "2%", top: "27%", width: "17%", height: "22%" },
         41: { left: "2%", top: "49%", width: "17%", height: "25%" },
         42: { left: "19%", top: "48%", width: "15%", height: "26%" },
@@ -899,6 +899,12 @@ function highlightWomensZone(zone) {
     highlight.style.height =
         position.height;
 
+    // Zone 39 has a wide upper section and a narrow lower extension; match that shape.
+    const clip = Number(zone) === 39
+        ? "polygon(0 0, 100% 0, 100% 70%, 63% 70%, 63% 100%, 55% 100%, 55% 70%, 0 70%)"
+        : "none";
+    highlight.style.clipPath = clip;
+    highlight.style.webkitClipPath = clip;
 
     highlight.classList.add("active");
 
