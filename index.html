@@ -874,7 +874,7 @@ function highlightWomensZone(zone) {
         48: { left: "64%", top: "40%", width: "12%", height: "22%" },
         49: { left: "64%", top: "62%", width: "12%", height: "20%" },
         50: { left: "58.5%", top: "45%", width: "8%", height: "16%" }, // Zone 50 blue area
-        51: { left: "66.5%", top: "46%", width: "11.5%", height: "52%" }, // Zone 51 yellow area, starts to the right of Zone 50
+        51: { left: "57.5%", top: "46.3%", width: "19%", height: "52%" }, // Zone 51 irregular orange area; polygon below excludes Zone 50
         52: { left: "69%", top: "55%", width: "23%", height: "37%" },
         53: { left: "82%", top: "75%", width: "10%", height: "14%" }
     };;
@@ -902,7 +902,9 @@ function highlightWomensZone(zone) {
     // Zone 39 has a wide upper section and a narrow lower extension; match that shape.
     const clip = Number(zone) === 39
         ? "polygon(0 0, 100% 0, 100% 70%, 63% 70%, 63% 100%, 55% 100%, 55% 70%, 0 70%)"
-        : "none";
+        : Number(zone) === 51
+            ? "polygon(44% 0, 100% 0, 100% 100%, 0 100%, 0 29%, 44% 29%)"
+            : "none";
     highlight.style.clipPath = clip;
     highlight.style.webkitClipPath = clip;
 
