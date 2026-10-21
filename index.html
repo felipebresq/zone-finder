@@ -321,7 +321,7 @@
 
             <img
                 class="map"
-                src="map-mens.png.png"
+                src="mens-map.png"
                 alt="Men's Universe Map"
             >
 
@@ -351,7 +351,7 @@
 
             <img
                 class="map"
-                src="map-womens.png.png"
+                src="womens-map.png"
                 alt="Women's Universe Map"
             >
 
@@ -683,8 +683,8 @@ function getFloorText(floor) {
 
 function getMapForZone(zone) {
 
-    if (zone >= 1 && zone <= 10) return "mens";
-    if (zone >= 11 && zone <= 13) return "womens";
+    if ((zone >= 1 && zone <= 10) || (zone >= 30 && zone <= 38)) return "mens";
+    if ((zone >= 11 && zone <= 13) || (zone >= 39 && zone <= 53)) return "womens";
     if (zone >= 80 && zone <= 85) return "additional";
 
     return null;
@@ -731,107 +731,28 @@ function highlightMensZone(zone) {
 
     const zones = {
 
+        1: { left: "71.8%", top: "59.5%", width: "15.0%", height: "19.0%" },
+        2: { left: "48.5%", top: "70.0%", width: "20.5%", height: "17.0%" },
+        3: { left: "48.5%", top: "43.5%", width: "20.5%", height: "27.0%" },
+        4: { left: "24.3%", top: "43.5%", width: "20.8%", height: "43.5%" },
+        5: { left: "6.5%", top: "61.4%", width: "17.6%", height: "26.4%" },
+        6: { left: "10.3%", top: "41.2%", width: "13.0%", height: "18.2%" },
+        7: { left: "10.5%", top: "10.5%", width: "12.0%", height: "30.0%" },
+        8: { left: "24.0%", top: "10.5%", width: "21.0%", height: "30.0%" },
+        9: { left: "48.3%", top: "10.5%", width: "20.5%", height: "30.0%" },
+        10: { left: "71.8%", top: "10.5%", width: "15.0%", height: "30.0%" },
 
-        /* Zone 1 */
-
-        1: {
-            left: "71.8%",
-            top: "59.5%",
-            width: "15.0%",
-            height: "19.0%"
-        },
-
-
-        /* Zone 2 */
-
-        2: {
-            left: "48.5%",
-            top: "70.0%",
-            width: "20.5%",
-            height: "17.0%"
-        },
-
-
-        /* Zone 3 */
-
-        3: {
-            left: "48.5%",
-            top: "43.5%",
-            width: "20.5%",
-            height: "27.0%"
-        },
-
-
-        /* Zone 4 */
-
-        4: {
-            left: "24.3%",
-            top: "43.5%",
-            width: "20.8%",
-            height: "43.5%"
-        },
-
-
-        /* Zone 5 */
-
-        5: {
-            left: "6.5%",
-            top: "61.4%",
-            width: "17.6%",
-            height: "26.4%"
-        },
-
-
-        /* Zone 6 */
-
-        6: {
-            left: "10.3%",
-            top: "41.2%",
-            width: "13.0%",
-            height: "18.2%"
-        },
-
-
-        /* Zone 7 */
-
-        7: {
-            left: "10.5%",
-            top: "10.5%",
-            width: "12.0%",
-            height: "30.0%"
-        },
-
-
-        /* Zone 8 */
-
-        8: {
-            left: "24.0%",
-            top: "10.5%",
-            width: "21.0%",
-            height: "30.0%"
-        },
-
-
-        /* Zone 9 */
-
-        9: {
-            left: "48.3%",
-            top: "10.5%",
-            width: "20.5%",
-            height: "30.0%"
-        },
-
-
-        /* Zone 10 */
-
-        10: {
-            left: "71.8%",
-            top: "10.5%",
-            width: "15.0%",
-            height: "30.0%"
-        }
-
-    };
+        /* New men's map zones */
+        30: { left: "2%", top: "4%", width: "27%", height: "34%" },
+        31: { left: "2%", top: "37%", width: "14%", height: "24%" },
+        32: { left: "15%", top: "35%", width: "13%", height: "8%" },
+        33: { left: "2%", top: "43%", width: "14%", height: "20%" },
+        34: { left: "2%", top: "62%", width: "17%", height: "28%" },
+        35: { left: "17%", top: "78%", width: "9%", height: "12%" },
+        36: { left: "19%", top: "60%", width: "7%", height: "17%" },
+        37: { left: "19%", top: "43%", width: "7%", height: "17%" },
+        38: { left: "40%", top: "84%", width: "20%", height: "12%" }
+    };;
 
 
     const position =
@@ -879,37 +800,27 @@ function highlightWomensZone(zone) {
 
     const zones = {
 
+        11: { left: "24%", top: "7%", width: "27%", height: "39%" },
+        12: { left: "49%", top: "7%", width: "18%", height: "30%" },
+        13: { left: "67%", top: "7%", width: "23%", height: "30%" },
 
-        /* Zone 11 */
-
-        11: {
-            left: "9.0%",
-            top: "13.8%",
-            width: "32.5%",
-            height: "73.0%"
-        },
-
-
-        /* Zone 12 */
-
-        12: {
-            left: "44.3%",
-            top: "13.8%",
-            width: "20.5%",
-            height: "30.0%"
-        },
-
-
-        /* Zone 13 */
-
-        13: {
-            left: "66.7%",
-            top: "13.8%",
-            width: "22.0%",
-            height: "30.0%"
-        }
-
-    };
+        /* New women's map zones */
+        39: { left: "2%", top: "3%", width: "19%", height: "25%" },
+        40: { left: "2%", top: "27%", width: "17%", height: "22%" },
+        41: { left: "2%", top: "49%", width: "17%", height: "25%" },
+        42: { left: "19%", top: "48%", width: "15%", height: "26%" },
+        43: { left: "19%", top: "74%", width: "15%", height: "21%" },
+        44: { left: "34%", top: "47%", width: "14%", height: "27%" },
+        45: { left: "34%", top: "74%", width: "14%", height: "21%" },
+        46: { left: "48%", top: "40%", width: "16%", height: "34%" },
+        47: { left: "48%", top: "74%", width: "16%", height: "21%" },
+        48: { left: "64%", top: "40%", width: "12%", height: "22%" },
+        49: { left: "64%", top: "62%", width: "12%", height: "20%" },
+        50: { left: "64%", top: "39%", width: "8%", height: "10%" },
+        51: { left: "30%", top: "48%", width: "37%", height: "46%" },
+        52: { left: "69%", top: "55%", width: "23%", height: "37%" },
+        53: { left: "82%", top: "75%", width: "10%", height: "14%" }
+    };;
 
 
     const position =
