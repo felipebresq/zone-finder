@@ -829,7 +829,9 @@ function highlightMensZone(zone) {
     // Clear the custom shape whenever another men's zone is selected.
     highlight.style.clipPath = Number(zone) === 5
         ? "polygon(0 0, 31% 0, 31% 55%, 100% 55%, 100% 100%, 0 100%)"
-        : "none";
+        : Number(zone) === 30
+            ? "polygon(0 0, 100% 0, 100% 100%, 52% 100%, 52% 60%, 0 60%)"
+            : "none";
 
     highlight.classList.add("active");
 
