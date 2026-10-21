@@ -629,8 +629,6 @@ async function loadPiWorkbook() {
             };
         }
         if (Object.keys(completeData).length) {
-            // Correct the known PI mapping: 190 belongs to Zone 08.
-            if (completeData["190"]) completeData["190"].zone = "08";
             sectionData = completeData;
             window.piDataLoaded = true;
         } else {
