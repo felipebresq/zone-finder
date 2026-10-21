@@ -252,6 +252,7 @@
 
     </style>
 
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 
 
@@ -408,7 +409,7 @@
    Final data will come from the updated Excel file.
 ===================================================== */
 
-const sectionData = {
+let sectionData = {
     "102": {
         "floor": "1",
         "zone": "05",
@@ -594,6 +595,56 @@ const sectionData = {
         "detail2": ""
     }
 };
+
+/* Load the complete PI index from the uploaded 2026 workbook. */
+async function loadPiWorkbook() {
+    const result = document.getElementById("result");
+    try {
+        if (typeof XLSX === "undefined") throw new Error("Spreadsheet parser did not load.");
+        const response = await fetch("UPDATED%202026%20-%20PI%20Zones.xlsx", { cache: "no-cache" });
+        if (!response.ok) throw new Error("Workbook request failed: " + response.status);
+        const workbook = XLSX.read(await response.arrayBuffer(), { type: "array" });
+        const sheet = workbook.Sheets["PI SECTION"];
+        if (!sheet) throw new Error('The "PI SECTION" worksheet was not found.');
+        const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, defval: "" });
+        const headers = (rows[1] || []).map(value => String(value).trim().toUpperCase());
+        const col = name => headers.indexOf(name);
+        const piCol = col("PI"), floorCol = col("FLOOR"), zoneCol = col("ZONE");
+        const descriptionCol = col("DESCRIPTION"), detailCol = col("DETAIL"), detail2Col = col("DETAIL 2");
+        if ([piCol, floorCol, zoneCol, descriptionCol].some(index => index < 0)) {
+            throw new Error("The workbook columns do not match the expected layout.");
+        }
+        const completeData = {};
+        for (const row of rows.slice(2)) {
+            const piValue = row[piCol];
+            if (piValue === "" || piValue === null || piValue === undefined) continue;
+            const pi = String(piValue).trim().replace(/\\.0$/, "");
+            if (!pi) continue;
+            completeData[pi] = {
+                floor: String(row[floorCol] ?? "").trim(),
+                zone: String(row[zoneCol] ?? "").trim(),
+                description: String(row[descriptionCol] ?? "").trim(),
+                detail: detailCol >= 0 ? String(row[detailCol] ?? "").trim() : "",
+                detail2: detail2Col >= 0 ? String(row[detail2Col] ?? "").trim() : ""
+            };
+        }
+        if (Object.keys(completeData).length) {
+            sectionData = completeData;
+            window.piDataLoaded = true;
+        } else {
+            throw new Error("No PI entries were found in the workbook.");
+        }
+    } catch (error) {
+        console.error("Could not load the PI workbook:", error);
+        window.piDataLoaded = false;
+        if (result) {
+            result.innerHTML = "Couldn't load the full PI list. Please refresh the page or try again.";
+            result.className = "result error";
+        }
+    }
+}
+
+
 
 /* =====================================================
    SEARCH
@@ -961,6 +1012,7 @@ function highlightAdditionalZone(zone) {
 </script>
 
 
+    <script>loadPiWorkbook();</script>
 </body>
 
 </html>
