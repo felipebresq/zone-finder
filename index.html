@@ -610,9 +610,11 @@ async function loadPiWorkbook() {
         const headers = (rows[1] || []).map(value => String(value).trim().toUpperCase());
         const col = name => headers.indexOf(name);
         const piCol = col("PI"), floorCol = col("FLOOR"), zoneCol = col("ZONE");
-        const column2Col = col("COLUMN2"), column1Col = col("COLUMN1");
-        const locationCol = col("LOCATION IN THE STORE"), descriptionCol = col("DESCRIPTION");
-        if ([piCol, floorCol, zoneCol, column2Col, column1Col, locationCol, descriptionCol].some(index => index < 0)) {
+        // Use the requested fixed Excel columns F, G, H and I.
+        // This avoids load failures if the workbook's F/G header names vary.
+        const column2Col = 5, column1Col = 6;
+        const locationCol = 7, descriptionCol = 8;
+        if ([piCol, floorCol, zoneCol, descriptionCol].some(index => index < 0)) {
             throw new Error("The workbook columns do not match the expected layout.");
         }
         const completeData = {};
