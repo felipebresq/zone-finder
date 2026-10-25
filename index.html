@@ -610,8 +610,9 @@ async function loadPiWorkbook() {
         const headers = (rows[1] || []).map(value => String(value).trim().toUpperCase());
         const col = name => headers.indexOf(name);
         const piCol = col("PI"), floorCol = col("FLOOR"), zoneCol = col("ZONE");
-        const descriptionCol = col("DESCRIPTION"), detailCol = col("DETAIL"), detail2Col = col("DETAIL 2");
-        if ([piCol, floorCol, zoneCol, descriptionCol].some(index => index < 0)) {
+        const column2Col = col("COLUMN2"), column1Col = col("COLUMN1");
+        const locationCol = col("LOCATION IN THE STORE"), descriptionCol = col("DESCRIPTION");
+        if ([piCol, floorCol, zoneCol, column2Col, column1Col, locationCol, descriptionCol].some(index => index < 0)) {
             throw new Error("The workbook columns do not match the expected layout.");
         }
         const completeData = {};
@@ -623,9 +624,10 @@ async function loadPiWorkbook() {
             completeData[pi] = {
                 floor: String(row[floorCol] ?? "").trim(),
                 zone: String(row[zoneCol] ?? "").trim(),
-                description: String(row[descriptionCol] ?? "").trim(),
-                detail: detailCol >= 0 ? String(row[detailCol] ?? "").trim() : "",
-                detail2: detail2Col >= 0 ? String(row[detail2Col] ?? "").trim() : ""
+                column2: String(row[column2Col] ?? "").trim(),
+                column1: String(row[column1Col] ?? "").trim(),
+                location: String(row[locationCol] ?? "").trim(),
+                description: String(row[descriptionCol] ?? "").trim()
             };
         }
         if (Object.keys(completeData).length) {
@@ -682,15 +684,13 @@ function findItem() {
     const zoneNumber = parseInt(section.zone, 10);
     const floorText = getFloorText(section.floor);
 
-    const details = [
-        section.description,
-        section.detail,
-        section.detail2
-    ].filter(Boolean).join(" - ");
+    const firstLine = [section.column2, section.column1].filter(Boolean).join(" - ");
+    const secondLine = [section.location, section.description].filter(Boolean).join(" - ");
 
     result.innerHTML =
         "<strong>Zone " + zoneNumber + " - " + floorText + "</strong>" +
-        (details ? "<br>" + details : "");
+        (firstLine ? "<br>" + firstLine : "") +
+        (secondLine ? "<br>" + secondLine : "");
 
     result.className = "result";
 
